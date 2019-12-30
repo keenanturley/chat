@@ -18,23 +18,32 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px;
+    padding: 0px 5px;
 }
 
 #history {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column nowrap;
     flex-grow: 1;
     border: 1px solid hsl(0, 0%, 50%);
     border-bottom: 0px;
     padding: 0;
     font-family: monospace;
-    overflow: auto;
+    overflow-y: auto;
 }
 
-tbody {
-    padding: 0;
+/* Fix flexbox scrollbar bug: https://stackoverflow.com/a/37515194 */
+#history > :first-child {
+    margin-top: auto !important;
 }
 
-tr:nth-child(even) {
+.message {
+    padding: 2px;
+    overflow-wrap: break-word;
+}
+
+.message:nth-child(odd) {
     background-color: hsl(0, 0%, 10%);
 }
 

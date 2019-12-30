@@ -12,11 +12,13 @@ connection.onmessage = e => {
 
 // Shows a message in the history
 function showMessage(message) {
+    let history = document.getElementById("history");
+    let element = document.createElement("div");
+    element.classList.add("message");
     let node = document.createTextNode(message);
-    document.querySelector("#history table")
-            .insertRow(-1)
-            .insertCell(0)
-            .appendChild(node);
+    element.appendChild(node);
+    history.appendChild(element);
+    history.scrollTo(0, history.scrollHeight);
 }
 
 // Sends a message to the server via websocket

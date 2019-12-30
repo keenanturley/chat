@@ -11,10 +11,7 @@ if (config.useHttps) {
         cert: fs.readFileSync(config.certPath)
     };
 
-    wsOptions.server = https.createServer(options, function (req, res) {
-        res.writeHead(200);
-        res.end("hello world\n");
-    }).listen(8000);
+    wsOptions.server = https.createServer(options);
 }
 
 const wss = new WebSocket.Server(wsOptions);
@@ -26,8 +23,14 @@ wss.on('connection', ws => {
     });
 })
 
+if (wsOptions.server) {
+    wsOptions.server.listen(8080);
+}
+
 wss.broadcast = (data) => {
     wss.clients.forEach((client) => {
-        client.send(data);
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(data);
+        }
     });
 };

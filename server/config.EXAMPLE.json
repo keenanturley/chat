@@ -1,5 +1,5 @@
 {
-    "https" : false,
+    "useHttps" : false,
     "keyPath" : "",
     "certPath" : ""
 }
